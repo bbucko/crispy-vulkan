@@ -1,0 +1,8 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: pmathia0/gcc-cmake-vulkan:latest
+    steps:
+      - checkout
+      - run: mkdir build && cd build && cmake .. && make
