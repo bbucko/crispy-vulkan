@@ -27,7 +27,6 @@ addons:
   apt:
     packages:
       - cmake
-      - libglfw3-dev
 
 script:
   - if [[ "$KSB_TARGET" == "LINUX" ]]; then mkdir build && cd build; fi
