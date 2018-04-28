@@ -5,5 +5,12 @@ jobs:
       - image: pmathia0/gcc-cmake-vulkan:latest
     steps:
       - checkout
-      - run: apt-get install -y libglm-dev
-      - run: mkdir build && cd build && cmake .. && make
+      - run:
+          name: Install deps
+          command: apt-get install -y libglm-dev
+      - run:
+          name: Debug build
+          command: sh ./build.sh Debug
+      - run:
+          name: Release build
+          command: sh ./build.sh Release
