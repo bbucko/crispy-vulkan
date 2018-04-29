@@ -10,6 +10,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <set>
+#include "game.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 600;
@@ -67,28 +68,31 @@ public:
     void run() {
         initWindow();
         initVulkan();
+        initGame();
         mainLoop();
         cleanup();
     }
 
 private:
-    GLFWwindow *window;
 
+    GLFWwindow *window;
     VkInstance instance;
+
     VkDebugReportCallbackEXT callback;
     VkSurfaceKHR surface;
-
     VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
+
     VkDevice device;
-
     VkQueue graphicsQueue;
-    VkQueue presentQueue;
 
+    VkQueue presentQueue;
     VkSwapchainKHR swapChain;
+
     std::vector<VkImage> swapChainImages;
     VkFormat swapChainImageFormat;
     VkExtent2D swapChainExtent;
     std::vector<VkImageView> swapChainImageViews;
+    Game game;
 
     void initWindow() {
         glfwInit();
@@ -108,6 +112,10 @@ private:
         createSwapChain();
         createImageViews();
         createGraphicsPipeline();
+    }
+
+    void initGame() {
+        game = Game();
     }
 
     void mainLoop() {

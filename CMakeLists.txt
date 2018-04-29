@@ -9,9 +9,16 @@ find_package(glfw3 REQUIRED)
 find_package(Vulkan REQUIRED)
 find_package(glm REQUIRED)
 
-file(GLOB CXX_SOURCES "src/*.cpp")
+add_executable(moltenvkcpp main.cpp)
 
-add_executable(moltenvkcpp ${CXX_SOURCES})
+include_directories(game)
+
+add_subdirectory(game)
+add_subdirectory(tests)
+
+enable_testing()
+
+target_link_libraries(moltenvkcpp game glm glfw Vulkan::Vulkan)
 
 # Add shaders
 file(GLOB SHADER_SOURCES "shaders/*.frag" "shaders/*.vert")
@@ -38,4 +45,3 @@ add_custom_command(TARGET moltenvkcpp POST_BUILD
         "${PROJECT_BINARY_DIR}/shaders"
         "$<TARGET_FILE_DIR:moltenvkcpp>/shaders")
 
-target_link_libraries(moltenvkcpp glm glfw Vulkan::Vulkan)
