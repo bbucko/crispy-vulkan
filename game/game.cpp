@@ -1,6 +1,6 @@
 
 #include "game.h"
 
-Game::Game(void) {
+Game::Game() {
     std::cout << "New Game" << std::endl;
 }

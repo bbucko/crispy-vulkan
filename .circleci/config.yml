@@ -12,5 +12,8 @@ jobs:
           name: Debug build
           command: sh ./build.sh Debug
       - run:
+          name: Test Debug
+          command: sh ./test.sh Debug
+      - run:
           name: Release build
           command: sh ./build.sh Release

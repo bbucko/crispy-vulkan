@@ -74,7 +74,6 @@ public:
     }
 
 private:
-
     GLFWwindow *window;
     VkInstance instance;
 
@@ -115,7 +114,7 @@ private:
     }
 
     void initGame() {
-        game = Game();
+//        game = Game();
     }
 
     void mainLoop() {
