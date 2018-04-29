@@ -9,15 +9,15 @@ find_package(glfw3 REQUIRED)
 find_package(Vulkan REQUIRED)
 find_package(glm REQUIRED)
 
-add_executable(moltenvkcpp src/main.cpp)
+file(GLOB CXX_SOURCES "src/*.cpp")
+
+add_executable(moltenvkcpp ${CXX_SOURCES})
 
 # Add shaders
-file(GLOB_RECURSE GLSL_SOURCE_FILES
-        "shaders/*.frag"
-        "shaders/*.vert"
-        )
+file(GLOB SHADER_SOURCES "shaders/*.frag" "shaders/*.vert")
 
-foreach (GLSL ${GLSL_SOURCE_FILES})
+foreach (GLSL ${SHADER_SOURCES})
+    message("Compiling: ${GLSL}")
     get_filename_component(FILE_NAME ${GLSL} NAME)
     set(SPIRV "${PROJECT_BINARY_DIR}/shaders/${FILE_NAME}.spv")
     add_custom_command(
@@ -28,18 +28,14 @@ foreach (GLSL ${GLSL_SOURCE_FILES})
     list(APPEND SPIRV_BINARY_FILES ${SPIRV})
 endforeach (GLSL)
 
-add_custom_target(
-        Shaders
-        DEPENDS ${SPIRV_BINARY_FILES}
-)
+add_custom_target(shaders DEPENDS ${SPIRV_BINARY_FILES})
 
-add_dependencies(moltenvkcpp Shaders)
+add_dependencies(moltenvkcpp shaders)
 
 add_custom_command(TARGET moltenvkcpp POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:moltenvkcpp>/shaders/"
         COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${PROJECT_BINARY_DIR}/shaders"
-        "$<TARGET_FILE_DIR:moltenvkcpp>/shaders"
-        )
+        "$<TARGET_FILE_DIR:moltenvkcpp>/shaders")
 
 target_link_libraries(moltenvkcpp glm glfw Vulkan::Vulkan)
