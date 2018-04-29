@@ -1,10 +1,6 @@
 project(shaders)
 
-if (UNIX)
-    set(GLSL_VALIDATOR "glslangValidator")
-elseif (APPLE)
-    set(GLSL_VALIDATOR "$ENV{VULKAN_SDK}/bin/glslangValidator")
-endif (UNIX)
+set(GLSL_VALIDATOR "$ENV{VULKAN_SDK}/bin/glslangValidator")
 
 # Add shaders
 file(GLOB SHADER_SOURCES "*.frag" "*.vert")

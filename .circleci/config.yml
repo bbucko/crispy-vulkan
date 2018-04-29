@@ -2,12 +2,12 @@ version: 2
 jobs:
   build:
     docker:
-      - image: pmathia0/gcc-cmake-vulkan:latest
+      - image: blejzu/gcc-cmake-vulkan:latest
     steps:
       - checkout
-      - run:
-          name: Install deps
-          command: apt-get install -y libglm-dev
+#      - run:
+#          name: Install deps
+#          command: apt-get install -y libglm-dev
       - run:
           name: Debug build
           command: sh ./build.sh Debug
