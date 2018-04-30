@@ -1,6 +1,8 @@
 version: 2
 jobs:
   build:
+    environment:
+      TEST_REPORTS: /tmp/test-reports
     docker:
       - image: blejzu/gcc-cmake-vulkan:latest
     steps:
@@ -13,6 +15,11 @@ jobs:
       - run:
           name: Test Debug
           command: sh ./test.sh Debug
+      - store_test_results:
+          path: /tmp/test-reports
+      - store_artifacts:
+          path: /tmp/test-reports
+          destination: tests
       - run:
           name: Release build
           command: sh ./build.sh Release
