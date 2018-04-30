@@ -2,3 +2,4 @@ cmake-build-debug
 *.iml
 .idea
 cmake-build-*
+.DS_Store
