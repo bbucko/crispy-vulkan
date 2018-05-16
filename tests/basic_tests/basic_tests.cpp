@@ -2,6 +2,7 @@
 
 #include "gtest/gtest.h"
 
-TEST(basic_check, test_eq) {
+TEST(BasicCheck, TestEquality) {
+    Game game = Game();
     EXPECT_EQ(true, true);
 }
